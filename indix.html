@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>كل عام وانتي بخير 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+         :root {
+            --rose: #e11d48;
+            --crimson: #9f1239;
+            --deep: #2e040c;
+            --mid: #590d22;
+            --gold: #d4af37;
+            --gold2: #f5d060;
+            --cream: #fff0f3;
+            --muted: rgba(255, 255, 255, 0.45);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Noto Naskh Arabic', serif;
+            background: linear-gradient(180deg, var(--deep) 0%, var(--mid) 50%, var(--deep) 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: default;
+        }
+        /* ────────── FLOATING HEARTS ────────── */
+        
+        #hearts-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .fheart {
+            position: absolute;
+            bottom: -60px;
+            animation: floatUp linear infinite;
+            will-change: transform, opacity;
+        }
+        
+        .fheart svg {
+            display: block;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: var(--max-op);
+            }
+            90% {
+                opacity: var(--max-op);
+            }
+            100% {
+                transform: translateY(-110vh) rotate(25deg);
+                opacity: 0;
+            }
+        }
+        /* ────────── SPARKLE LAYER ────────── */
+        
+        #sparkle-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+        
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            animation: sparkleFly 0.8s ease-out forwards;
+            will-change: transform, opacity;
+        }
+        
+        @keyframes sparkleFly {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--tr));
+            }
+        }
+        /* ────────── HERO ────────── */
+        
+        #hero {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 4rem 1.5rem 2rem;
+        }
+        
+        .hero-title-wrap {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .hero-title-wrap .star {
+            position: absolute;
+            color: var(--gold);
+            font-size: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .hero-title-wrap .star:nth-child(1) {
+            top: -1.5rem;
+            right: -1.5rem;
+        }
+        
+        .hero-title-wrap .star:nth-child(2) {
+            bottom: -1rem;
+            left: -1rem;
+            animation-delay: 1s;
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.85);
+            }
+        }
+        
+        h1 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(2.8rem, 10vw, 6rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), #fff, var(--gold2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            padding: 0.25rem 1rem;
+            drop-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+        }
+        
+        h2 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(1.4rem, 5vw, 2.5rem);
+            color: rgba(255, 255, 255, 0.88);
+            margin-top: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+        }
+        
+        .hero-desc {
+            margin-top: 1.5rem;
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            color: rgba(255, 255, 255, 0.55);
+            max-width: 500px;
+            margin-inline: auto;
+            line-height: 1.8;
+        }
+        /* ────────── GRID ────────── */
+        
+        #grid {
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 3rem auto 5rem;
+            padding: 0 1.5rem;
+        }
+        /* ────────── CARD ────────── */
+        
+        .card {
+            aspect-ratio: 3/4;
+            border-radius: 1rem;
+            position: relative;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+        
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(.4, 0, .2, 1);
+            border-radius: 1rem;
+        }
+        
+        .card.open .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front,
+        .card-back {
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            overflow: hidden;
+        }
+        /* UNLOCKED FRONT */
+        
+        .card-front.unlocked {
+            background: linear-gradient(145deg, rgba(159, 18, 57, 0.5), rgba(46, 4, 12, 0.8));
+            border: 1.5px solid rgba(212, 175, 55, 0.45);
+            box-shadow: 0 0 22px rgba(212, 175, 55, 0.18), 0 4px 24px rgba(0, 0, 0, 0.4);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        
+        .card:hover .card-front.unlocked {
+            box-shadow: 0 0 36px rgba(212, 175, 55, 0.38), 0 6px 32px rgba(0, 0, 0, 0.5);
+            transform: scale(1.03);
+        }
+        /* LOCKED FRONT */
+        
+        .card-front.locked {
+            background: rgba(30, 5, 12, 0.55);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            cursor: not-allowed;
+            filter: grayscale(20%);
+            opacity: 0.75;
+        }
+        /* BACK */
+        
+        .card-back {
+            background: var(--cream);
+            transform: rotateY(180deg);
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 1.25rem;
+            text-align: right;
+            overflow-y: auto;
+        }
+        
+        .card-back::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .card-back::-webkit-scrollbar-thumb {
+            background: rgba(225, 29, 72, 0.3);
+            border-radius: 99px;
+        }
+        /* envelope SVG pulse for unlocked */
+        
+        .envelope-icon {
+            animation: envPulse 2.2s ease-in-out infinite;
+        }
+        
+        @keyframes envPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        
+        .card-title {
+            font-family: 'Amiri', serif;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: 700;
+            margin-top: 0.75rem;
+        }
+        
+        .card-front.unlocked .card-title {
+            color: #fff;
+        }
+        
+        .card-front.locked .card-title {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .card-hint {
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            justify-content: center;
+        }
+        
+        .card-front.unlocked .card-hint {
+            color: rgba(212, 175, 55, 0.85);
+        }
+        
+        .card-front.locked .card-hint {
+            color: rgba(255, 255, 255, 0.45);
+        }
+        /* BACK content */
+        
+        .back-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            border-bottom: 1px solid rgba(225, 29, 72, 0.15);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .back-header-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--rose);
+        }
+        
+        .back-text {
+            font-size: 0.92rem;
+            line-height: 1.9;
+            color: #3b0a1f;
+            flex: 1;
+        }
+        
+        .back-close {
+            font-size: 0.7rem;
+            color: rgba(225, 29, 72, 0.55);
+            text-align: center;
+            width: 100%;
+            border-top: 1px solid rgba(225, 29, 72, 0.12);
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        /* ────────── HEART SVG inline ────────── */
+        
+        svg.heart {
+            fill: currentColor;
+        }
+        /* ────────── RESPONSIVE ────────── */
+        
+        @media (max-width: 480px) {
+            #grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .card {
+                aspect-ratio: 3/4;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating hearts background -->
+    <div id="hearts-layer"></div>
+
+    <!-- Sparkle layer -->
+    <div id="sparkle-layer"></div>
+
+    <!-- Hero -->
+    <section id="hero">
+        <div class="hero-title-wrap">
+            <span class="star">✨</span>
+            <h1>كل عام وانتي بخير</h1>
+            <span class="star" style="animation-delay:.9s">✨</span>
+        </div>
+        <h2>يا أغلى الناس على قلبي</h2>
+        <p class="hero-desc">ستُفتح لكِ رسالة كل ساعة طوال يوم ميلادكِ. هذا اليوم لكِ وحدكِ، وكل رسالة تحمل جزءاً من قلبي.</p>
+    </section>
+
+    <!-- Letters grid -->
+    <div id="grid"></div>
+
+    <script>
+        // ─── DATA ───────────────────────────────────────────────
+        const LETTERS = [{
+            hour: 0,
+            title: "الساعة 12 منتصف الليل",
+            text: "كل عام وأنتِ أجمل صدفة، وأجمل نعمة، وأجمل شعور عرفه قلبي. اليوم مو مجرد تاريخ، اليوم اليوم اللي أنولد فيه أجمل إنسانة غيرت حياتي. عيد ميلاد سعيد يا أميرتي، وأتمنى كل سنة أكون أول شخص يقولها لك وآخر شخص يطمن قلبك قبل ينام. 🤍"
+        }, {
+            hour: 1,
+            title: "الساعة 1 صباحاً",
+            text: "أدري إن الهدايا كثير تنتهي، لكن وجودك بحياتي هو أعظم هدية أخذتها من الدنيا. الله يديمك لي عمرًا وسعادة، ويكتب لك من الفرح أضعاف اللي تستحقينه."
+        }, {
+            hour: 2,
+            title: "الساعة 2 صباحاً",
+            text: "في يوم ميلادك، أتمنى لو أقدر أوقف الوقت شوي... وأجلس أتأمل كيف إن شخص واحد قدر يصير سبب ابتسامتي كل يوم. أحبك أكثر مما تعرف الكلمات توصف."
+        }, {
+            hour: 3,
+            title: "الساعة 3 صباحاً",
+            text: "أحبُّكِ حبَّينِ: حبَّ الهوى... وحبًّا لأنَّكِ أهلٌ لذالك."
+        }, {
+            hour: 4,
+            title: "الساعة 4 صباحاً",
+            text: "لو قالوا لي اختصر الدنيا بكلمة، بقول اسمك. لأن كل شيء جميل بالحياة صار له معنى من عرفتك."
+        }, {
+            hour: 5,
+            title: "الساعة 5 صباحاً",
+            text: "صباح عيد ميلادك مختلف... كأنه الشمس طالعة وهي مبتسمة لك. صباح العمر الطويل، وصباح الضحكة اللي أحبها أكثر من أي شيء."
+        }, {
+            hour: 6,
+            title: "الساعة 6 صباحاً",
+            text: "كل سنة وأنتِ بخير يا أميرة قلبي. أدعي ربي يحقق لك كل أمنية، حتى الأمنيات اللي ما قلتيها لأحد."
+        }, {
+            hour: 7,
+            title: "الساعة 7 صباحاً",
+            text: "تعرفين وش أكثر شيء أحبه؟ إني إذا فكرت بالمستقبل... أشوفك فيه بكل تفاصيله. الله يديمك لي ولا يحرمني منك."
+        }, {
+            hour: 8,
+            title: "الساعة 8 صباحاً",
+            text: "وما كنتُ ممن يدخلُ العشقُ قلبَهُ... ولكنَّ من يُبصرْ جفونَكِ يعشقِ."
+        }, {
+            hour: 9,
+            title: "الساعة 9 صباحاً",
+            text: "أحب تفاصيلك كلها... ضحكتك، صوتك، طريقتك بالكلام، وحتى زعلك. لأنك بكل حالاتك أجمل إنسانة بعيني."
+        }, {
+            hour: 10,
+            title: "الساعة 10 صباحاً",
+            text: "إذا كان فيه أمنية لي اليوم، فهي إن كل أعياد ميلادك الجاية أكون جنبك، وأشوف الفرحة بعيونك وأنا سبب فيها."
+        }, {
+            hour: 11,
+            title: "الساعة 11 صباحاً",
+            text: "أحيانًا أفكر... وش سويت بالحياة عشان ربي يرزقني فيك؟ ثم أبتسم وأقول الحمدلله على أجمل نعمة."
+        }, {
+            hour: 12,
+            title: "الساعة 12 ظهراً",
+            text: "اليوم عيد ميلادك... لكن الصدق أنا اللي محظوظ، لأني عرفت إنسانة مثلك. كل سنة وأنتِ بخير يا أغلى من العمر."
+        }, {
+            hour: 13,
+            title: "الساعة 1 ظهراً",
+            text: "لو يجتمع جمال الورد، وصفاء المطر، وهدوء الليل... ما يوصل لنصف الجمال اللي أشوفه فيك."
+        }, {
+            hour: 14,
+            title: "الساعة 2 ظهراً",
+            text: "إذا ابتسمتْ... أزهرتْ في القلب ألفُ حديقة."
+        }, {
+            hour: 15,
+            title: "الساعة 3 عصراً",
+            text: "يمكن ما أعرف أوصفك مثل الشعراء، لكن أعرف شيء واحد... إنك السبب بعد الله في كثير من أيامي الحلوة."
+        }, {
+            hour: 16,
+            title: "الساعة 4 عصراً",
+            text: "كل سنة وأنتِ أقرب إنسانة لقلبي، وأغلى إنسانة على روحي، وأجمل دعوة أدعوها كل ليلة."
+        }, {
+            hour: 17,
+            title: "الساعة 5 عصراً",
+            text: "أبيك تعرفين إن وجودك بحياتي مو شيء عادي... وجودك راحة، وأمان، وطمأنينة، وسبب يخلي الدنيا أخف."
+        }, {
+            hour: 18,
+            title: "الساعة 6 مساءً",
+            text: "عيونُكِ بحرٌ، وكلُّ البحارِ أمامَها... مجردُ قطرة."
+        }, {
+            hour: 19,
+            title: "الساعة 7 مساءً",
+            text: "إذا سألتيني يوم: قد إيش تحبني؟ بقول لك: بعدد المرات اللي ابتسمت فيها بدون سبب، ثم اكتشفت إن السبب هو أنتِ."
+        }, {
+            hour: 20,
+            title: "الساعة 8 مساءً",
+            text: "أتمنى آخر العمر أقدر أقول: كل أعياد ميلادها كنت حاضر فيها.هذا حلمي، وأتمنى ربي يكتبه لنا."
+        }, {
+            hour: 21,
+            title: "الساعة 9 مساءً",
+            text: "أنتِ مو أجمل بنت بعيني وبس... أنتِ أجمل شعور، وأحن قلب، وأغلى شخص عرفته بحياتي."
+        }, {
+            hour: 22,
+            title: "الساعة 10 مساءً",
+            text: "بدأ يوم ميلادك وأنا أول المهنئين... وأبي أختمه بنفس الشعور: أحبك أكثر من البارح، وأقل من بكرة."
+        }, {
+            hour: 23,
+            title: "الساعة 11 مساءً",
+            text: "قبل يخلص يوم ميلادك... أبي أقول لك شكرًا لأنك دخلتِ حياتي وصرتِ أجمل شيء فيها. كل سنة وأنتِ أميرتي، وكل سنة وأنا أدعي ربي يحفظك لي ويكتب لنا أيامًا كلها فرح، ويجعلني دائمًا سببًا في ابتسامتك. أحبك حبًا لا تنقصه الأيام، بل يزيده مرورها."
+        }, ];
+
+        // ─── SAUDI TIME ──────────────────────────────────────────
+        function getSaudiHour() {
+            const now = new Date();
+            const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+            const saudiMs = utcMs + 3 * 60 * 60 * 1000;
+            return new Date(saudiMs).getHours();
+        }
+
+        // ─── FLOATING HEARTS ─────────────────────────────────────
+        const HEART_COLORS = ['#f472b6', '#e11d48', '#fb7185', '#fda4af', '#d4af37', '#fbbf24', '#fb923c'];
+
+        function heartSVG(size, color) {
+            return `<svg class="heart" width="${size}" height="${size}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color:${color};filter:drop-shadow(0 0 4px rgba(255,255,255,0.25))"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="currentColor"/></svg>`;
+        }
+
+        function createFloatingHearts() {
+            const layer = document.getElementById('hearts-layer');
+            for (let i = 0; i < 48; i++) {
+                const size = Math.random() * 32 + 8;
+                const left = Math.random() * 100;
+                const dur = (Math.random() * 16 + 10).toFixed(1);
+                const delay = (Math.random() * -22).toFixed(1);
+                const opacity = (Math.random() * 0.55 + 0.2).toFixed(2);
+                const color = HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)];
+
+                const el = document.createElement('div');
+                el.className = 'fheart';
+                el.style.cssText = `
+      left:${left}%;
+      animation-duration:${dur}s;
+      animation-delay:${delay}s;
+      --max-op:${opacity};
+    `;
+                el.innerHTML = heartSVG(size, color);
+                layer.appendChild(el);
+            }
+        }
+
+        // ─── SPARKLE ON CLICK ─────────────────────────────────────
+        const SPARKLE_COLORS = ['#f472b6', '#e11d48', '#fbbf24', '#fb7185', '#fda4af'];
+        let sparkleId = 0;
+
+        document.addEventListener('click', function(e) {
+            const layer = document.getElementById('sparkle-layer');
+            const count = Math.floor(Math.random() * 4) + 5;
+
+            for (let i = 0; i < count; i++) {
+                const size = Math.floor(Math.random() * 14) + 6;
+                const color = SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)];
+                const tx = (Math.random() * 120 - 60).toFixed(0);
+                const ty = (Math.random() * 120 - 60).toFixed(0);
+                const tr = (Math.random() * 360 - 180).toFixed(0);
+                const id = sparkleId++;
+
+                const el = document.createElement('div');
+                el.className = 'sparkle';
+                el.id = `sp${id}`;
+                el.style.cssText = `
+      left:${e.clientX - size/2}px;
+      top:${e.clientY - size/2}px;
+      color:${color};
+      --tx:${tx}px;
+      --ty:${ty}px;
+      --tr:${tr}deg;
+    `;
+                el.innerHTML = heartSVG(size, color);
+                layer.appendChild(el);
+                setTimeout(() => el.remove(), 900);
+            }
+        });
+
+        // ─── ENVELOPE SVG (unlocked) ──────────────────────────────
+        function envelopeSVG(color = '#d4af37') {
+            return `
+  <div class="envelope-icon" style="position:relative;display:inline-block">
+    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+    </svg>
+    <svg style="position:absolute;bottom:-4px;right:-4px" width="18" height="18" viewBox="0 0 24 24" fill="#e11d48">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+  </div>`;
+        }
+
+        function lockedSVG() {
+            return `
+  <div style="position:relative;display:inline-block">
+    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+    </svg>
+    <svg style="position:absolute;bottom:-4px;right:-4px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+  </div>`;
+        }
+
+        // ─── BUILD GRID ───────────────────────────────────────────
+        let currentHour = getSaudiHour();
+
+        function buildGrid() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+
+            LETTERS.forEach(function(letter) {
+                        const unlocked = currentHour >= letter.hour;
+
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.dataset.hour = letter.hour;
+
+                        card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-front ${unlocked ? 'unlocked' : 'locked'}">
+          ${unlocked ? envelopeSVG() : lockedSVG()}
+          <div class="card-title">${letter.title}</div>
+          <div class="card-hint">
+            ${unlocked
+              ? `<span>✦</span> اضغطي لفتح الرسالة <span>✦</span>`
+              : `انتظري يا أغلى البشر 💕`}
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="back-header">
+            <div class="back-header-title">${letter.title}</div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#e11d48" style="flex-shrink:0">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <p class="back-text">${letter.text}</p>
+          <div class="back-close">انقري للإغلاق</div>
+        </div>
+      </div>`;
+
+    if (unlocked) {
+      card.addEventListener('click', function() {
+        card.classList.toggle('open');
+      });
+    }
+
+    grid.appendChild(card);
+  });
+}
+
+// ─── AUTO-REFRESH EVERY MINUTE ────────────────────────────
+setInterval(function() {
+  const newHour = getSaudiHour();
+  if (newHour !== currentHour) {
+    currentHour = newHour;
+    buildGrid();
+  }
+}, 60000);
+
+// ─── INIT ─────────────────────────────────────────────────
+createFloatingHearts();
+buildGrid();
+    </script>
+</body>
+
+</html>
